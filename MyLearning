@@ -11,6 +11,102 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
+*********************************************************************************************************************************************************
+## Database : 1) Database is the collection of the data in a format that can be easily accessed(digital).
+              2) A software application used to manage our DB is called Database Management System.
+
+
+## Types of Databases : 
+1) Relational Database :      Data stored in a tables 
+                              eg.MYSQL , SQLServer , Oracle
+
+2) Non-Relational Database  :    Data does not store in tables 
+(NOSQL)                          eg.mongoDB
+
+
+*****************************************************************************************************
+# what is SQL? 
+SQL is a Structure Querry Language , used to interact with relational database.
+#it is used to perform CRUD operations 
+1)Create
+2)Read
+3)Update
+4)Delete
+
+## SQL Commands 
+DDL : Data Defination Language (create , alter , drop)
+DML : Data Manipulation Language(insert , update , delete )
+DCL : Data Control Language (Grant ,  Revoke)
+TCL : Transaction Control Language (commit , rollback)
+DQL : Data Querry Language ( select)
+
+## SQL Datatypes 
+CHAR , VARCHAR , BLOB , INT , TINYINT , BIGINT , BIT , FLOAT , DOUBLE , BOOLEAN , DATE , YEAR 
+
+*******************************************************************************************************************
+
+## Database Queries : 
+
+1) Create our 1st database
+mysql> create database Student ;
+Query OK, 1 row affected (0.05 sec)
+
+2) mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| practice           |
+| student            |
+| xyz                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use Student ;
+Database changed
+
+# Create stu table 
+mysql> create table stu(id INT PRIMARY KEY , name varchar(3) , age INT NOT NULL );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> describe stu;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| id    | int        | NO   | PRI | NULL    |       |
+| name  | varchar(3) | YES  |     | NULL    |       |
+| age   | int        | NO   |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+mysql> ALTER TABLE stu MODIFY name VARCHAR(50);
+Query OK, 0 rows affected (0.04 sec)
+
+3) Insert the values in stu table 
+mysql> INSERT INTO stu VALUES (2, "Diksha", 22) , (3, "Shubhra", 23), (4,"Chaitu",24),(5 , " Nachi" , 25);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from stu;
++----+---------+-----+
+| id | name    | age |
++----+---------+-----+
+|  1 | Vins    |  21 |
+|  2 | Diksha  |  22 |
+|  3 | Shubhra |  23 |
+|  4 | Chaitu  |  24 |
+|  5 |  Nachi  |  25 |
++----+---------+-----+
+5 rows in set (0.01 sec)
+
+mysql> CREATE DATABASE IF NOT EXISTS student;
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+*********************************************************************************************************************
+###  Practice question : 
+Que :- create a databse for your company named XYZ
+Ans :- 
 mysql> show databases ;
 +--------------------+
 | Database           |
@@ -20,6 +116,338 @@ mysql> show databases ;
 | mysql              |
 | performance_schema |
 | practice           |
+| student            |
 | xyz                |
+| xyz_company        |
 +--------------------+
-6 rows in set (0.04 sec)
+8 rows in set (0.00 sec)
+
+mysql> create table employee(id INT PRIMARY KEY , name VARCHAR(100), salary INT );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc employee;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| id     | int          | NO   | PRI | NULL    |       |
+| name   | varchar(100) | YES  |     | NULL    |       |
+| salary | int          | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+mysql> insert into employee (id,name,salary)
+    -> VALUES
+    -> (1,"adam" , 25000),
+    -> (2,"bob" , 30000),
+    -> (3,"casey" , 40000);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+mysql> select * from employee;
++----+-------+--------+
+| id | name  | salary |
++----+-------+--------+
+|  1 | adam  |  25000 |
+|  2 | bob   |  30000 |
+|  3 | casey |  40000 |
++----+-------+--------+
+3 rows in set (0.00 sec)
+
+*******************************************************************************************************************************************
+## KEYS :
+**Primary Key** : It is a column(or set of columns) in a table that uniquely identifies each row.(a unique id) . 
+                  There is only 1 PK & it should be NOT NULL .
+**Foreign Key** : A foreign key is a column(or set of columns) in a table that refers to the primary key in the table 
+                  There can be multiple FKs . FKs can have duplicate & null values 
+*******************************************************************************************************************************************
+
+## Constraints :
+1) NOT NULL    : colums cannot have a null value (eg.col1 int NOT NULL)
+2) UNIQUE      : All values in column are different(eg.col2 int UNIQUE)
+3) Primary Key : makes a column unique & not null but used only for one (eg.id int PRIMARY KEY) 
+4) Foreign Key : prevent actions that would destory links between tables(eg. create table Temp(cust_id int , FOREIGN KEY(cust_id) references customer(id)
+5) Default     : sets the default value of a column (eg. salary INT DEFAULT 25000)
+6) Check       : it can limit the values allowed in a column(eg.create table city(id INT PRIMARY KEY , city VARCHAR(50) , age INT , CONSTRAINT age_check CHECK(age>= 18 AND city="Delhi")
+
+
+##queries 
+mysql> create table temp1(id INT NOT NULL ,  PRIMARY KEY(id) );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table emp(id INT , salary INT DEFAULT 25000);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into emp(id) values(101);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from emp;
++------+--------+
+| id   | salary |
++------+--------+
+|  101 |  25000 |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE Student (
+    ->     rollno INT PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     marks INT NOT NULL,
+    ->     grade VARCHAR(10),
+    ->     city VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into Student(rollno,name,marks,grade,city)
+    -> values
+    -> (101,"chaitu",78,"A","Pune"),
+    -> (102,"vins",79,"B","Mumbai"),
+    -> (103,"nachi",85,"C","Mumbai"),
+    -> (104,"tush",92,"D","Delhi"),
+    -> (105,"piyu",87,"A","Delhi"),
+    -> (106,"diksha",80,"B","Delhi");
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select city from Student;
++--------+
+| city   |
++--------+
+| Pune   |
+| Mumbai |
+| Mumbai |
+| Delhi  |
+| Delhi  |
+| Delhi  |
++--------+
+6 rows in set (0.00 sec)
+
+## DISTINCT print only the unique values(not allows the duplicates )
+mysql> select DISTINCT city from Student;
++--------+
+| city   |
++--------+
+| Pune   |
+| Mumbai |
+| Delhi  |
++--------+
+3 rows in set (0.01 sec)
+*****************************************************************************************************************************
+
+## WHERE clause  : To define some conditions(eg. select col1,col2 from table_name WHERE conditios;) 
+
+mysql> select * from Student WHERE marks>80;
++--------+-------+-------+-------+--------+
+| rollno | name  | marks | grade | city   |
++--------+-------+-------+-------+--------+
+|    103 | nachi |    85 | C     | Mumbai |
+|    104 | tush  |    92 | D     | Delhi  |
+|    105 | piyu  |    87 | A     | Delhi  |
++--------+-------+-------+-------+--------+
+3 rows in set (0.01 sec)
+
+mysql> select * from Student WHERE city= "Mumbai";
++--------+-------+-------+-------+--------+
+| rollno | name  | marks | grade | city   |
++--------+-------+-------+-------+--------+
+|    102 | vins  |    79 | B     | Mumbai |
+|    103 | nachi |    85 | C     | Mumbai |
++--------+-------+-------+-------+--------+
+2 rows in set (0.01 sec)
+
+
+  ** using Operators in WHERE **
+   Arithmetic Operator : + ,- ,* , / , % 
+   Comparison Operator : = , != , > , < , >= , <= 
+   Logical Operator    : AND , OR, NOT , IN , BETWEEN , ALL , LIKE , ANY 
+   Bitwise Operator    : &(Bitwise AND) , | (Bitwise OR)
+
+*****AND Operator*****
+(to check for both conditions to be true )
+mysql> select * from Student WHERE marks>80 AND city="Delhi";
++--------+------+-------+-------+-------+
+| rollno | name | marks | grade | city  |
++--------+------+-------+-------+-------+
+|    104 | tush |    92 | D     | Delhi |
+|    105 | piyu |    87 | A     | Delhi |
++--------+------+-------+-------+-------+
+2 rows in set (0.00 sec)
+
+*****OR Operator*****
+(to check for one of the conditions to be true )
+mysql> select * from Student WHERE marks>85 OR city="Delhi";
++--------+--------+-------+-------+-------+
+| rollno | name   | marks | grade | city  |
++--------+--------+-------+-------+-------+
+|    104 | tush   |    92 | D     | Delhi |
+|    105 | piyu   |    87 | A     | Delhi |
+|    106 | diksha |    80 | B     | Delhi |
++--------+--------+-------+-------+-------+
+3 rows in set (0.00 sec)
+
+*****BETWEEN Operator*****
+(select for a given range)
+mysql> select * from Student WHERE marks BETWEEN 70 AND 85;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+4 rows in set (0.00 sec)
+
+*****IN Operator*****
+(matches any value in the list)
+mysql> select * from Student WHERE city IN ("Delhi","Mumbai");
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | A     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+*****NOT Operator *****
+(to negate the given condition)
+mysql> select * from Student WHERE city NOT IN("Delhi","Mumbai");
++--------+--------+-------+-------+------+
+| rollno | name   | marks | grade | city |
++--------+--------+-------+-------+------+
+|    101 | chaitu |    78 | A     | Pune |
++--------+--------+-------+-------+------+
+1 row in set (0.00 sec)
+*******************************************************************************************************
+
+## LIMIT clause ##
+(sets an upper limit on a number of(tuples)rows to be returned
+eg.
+mysql> select * from Student LIMIT 3;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
++--------+--------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+ ## ORDER BY CLAUSE ## 
+(To sort in ascending(ASC) or descending order(DESC)
+Eg. 
+mysql> select * from Student ORDER BY city ASC;;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | A     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    101 | chaitu |    78 | A     | Pune   |
++--------+--------+-------+-------+--------+
+6 rows in set (0.01 sec)
+
+mysql> select * from Student ORDER BY city DESC;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | A     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Student ORDER BY marks DESC LIMIT 3;
++--------+-------+-------+-------+--------+
+| rollno | name  | marks | grade | city   |
++--------+-------+-------+-------+--------+
+|    104 | tush  |    92 | D     | Delhi  |
+|    105 | piyu  |    87 | A     | Delhi  |
+|    103 | nachi |    85 | C     | Mumbai |
++--------+-------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+## GROUP BY Clause ##
+Group rows that have the same values into summary row
+It collects data from multiple records and groups the result by one or more column.
+Generally we use group by with the some aggregation function
+
+eg. 
+mysql> select * from Student GROUP BY marks ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | A     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Student GROUP BY city ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
++--------+--------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+************************************************************************************************************************************************
+## Aggregate Functions ##
+Aggregate functions perform a calculation ona set of values abd return a single value .
+
+1) COUNT()
+mysql> select COUNT(marks) from Student;
++--------------+
+| COUNT(marks) |
++--------------+
+|            6 |
++--------------+
+1 row in set (0.02 sec)
+
+2) MAX()
+mysql> select MAX(marks) from Student;
++------------+
+| MAX(marks) |
++------------+
+|         92 |
++------------+
+1 row in set (0.02 sec)
+
+3) MIN()
+mysql> select MIN(marks) from Student;
++------------+
+| MIN(marks) |
++------------+
+|         78 |
++------------+
+1 row in set (0.00 sec)
+
+4) SUM()
+mysql> select SUM(marks) from Student;
++------------+
+| SUM(marks) |
++------------+
+|        501 |
++------------+
+1 row in set (0.00 sec)
+
+5) AVG()
+mysql> select AVG(marks) from Student;
++------------+
+| AVG(marks) |
++------------+
+|    83.5000 |
++------------+
+1 row in set (0.00 sec)
+
+
