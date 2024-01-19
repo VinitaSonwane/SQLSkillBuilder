@@ -372,7 +372,7 @@ mysql> select * from Student ORDER BY marks DESC LIMIT 3;
 |    103 | nachi |    85 | C     | Mumbai |
 +--------+-------+-------+-------+--------+
 3 rows in set (0.00 sec)
-
+*********************************************************************
 ## GROUP BY Clause ##
 Group rows that have the same values into summary row
 It collects data from multiple records and groups the result by one or more column.
@@ -401,6 +401,20 @@ mysql> select * from Student GROUP BY city ;
 |    104 | tush   |    92 | D     | Delhi  |
 +--------+--------+-------+-------+--------+
 3 rows in set (0.00 sec)
+
+*****************************************************************************
+## Having Clause
+Similar to the WHERE i.e applies some condition on rows.
+using when we want to apply any condition after grouping.
+
+
+**General Order**
+SELECT column(s)
+FROM table_name
+WHERE condition
+GROUP BY column(s)
+Having condition
+ORDER BY column(s)ASC;
 
 ************************************************************************************************************************************************
 ## Aggregate Functions ##
@@ -450,5 +464,6 @@ mysql> select AVG(marks) from Student;
 |    83.5000 |
 +------------+
 1 row in set (0.00 sec)
+
 
 
