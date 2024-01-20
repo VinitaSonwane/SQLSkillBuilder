@@ -466,5 +466,126 @@ mysql> select AVG(marks) from Student;
 +------------+
 1 row in set (0.00 sec)
 
+## Table Related Queries
+Update(to update existing rows)
+
+update table_name 
+SET col1 = val1 , col2 = val2
+WHERE condition;
+
+****EXAMPLE***
+mysql> use college ;
+Database changed
+mysql> select * from Student ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | A     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | A     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.01 sec)
+
+mysql> UPDATE Student
+    -> SET grade = "O"
+    -> WHERE grade = "A";
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+mysql> select * from Student ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | O     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | O     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+*********************************************************************************
+**Cascading for FK(Foreign Key)**
+## on Update Cascade 
+-> When we create a foreign key using this option , it deletes the referencing rows in the child table . 
+-> when the referenced row is deleted in the parent table in which has a primary key .
+
+## On Delete Cascade 
+-> when we create a foreign key using UPDATE CASCADE the referencing rows are updataed in the child table when the referenced row is updated in the parent table which has a primaey key.
+ **Example **
+
+mysql> create table teacher (
+    -> id INT PRIMARY KEY ,
+    -> name VARCHAR(50),
+    -> dept_id INT ,
+    -> FOREIGN KEY (dept_id) REFERENCES dept(id)
+    -> ON UPDATE CASCADE
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc teacher ;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(50) | YES  |     | NULL    |       |
+| dept_id | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into dept
+    -> VALUES
+    -> (101 , "English") ,
+    -> (102 , "IT");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept ;
++-----+---------+
+| id  | name    |
++-----+---------+
+| 101 | English |
+| 102 | IT      |
++-----+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into teacher
+    -> VALUES
+    -> (101 , "Adam" , 101) ,
+    -> (102 , "Eve" , 102);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from teacher ;
++-----+------+---------+
+| id  | name | dept_id |
++-----+------+---------+
+| 101 | Adam |     101 |
+| 102 | Eve  |     102 |
++-----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE dept
+    -> SET id = 103
+    -> WHERE id = 102 ;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | O     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | O     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
 
 
