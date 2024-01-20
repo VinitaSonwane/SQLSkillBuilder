@@ -104,7 +104,8 @@ mysql> select * from stu;
 mysql> CREATE DATABASE IF NOT EXISTS student;
 Query OK, 1 row affected, 1 warning (0.01 sec)
 
-*********************************************************************************************************************
+**************************************************************************************************************************************
+
 ###  Practice question : 
 Que :- create a databse for your company named XYZ
 Ans :- 
