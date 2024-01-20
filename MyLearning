@@ -465,9 +465,9 @@ mysql> select AVG(marks) from Student;
 |    83.5000 |
 +------------+
 1 row in set (0.00 sec)
-
+***********************************************************************************
 ## Table Related Queries
-Update(to update existing rows)
+************Update(to update existing rows)***********
 
 update table_name 
 SET col1 = val1 , col2 = val2
@@ -506,6 +506,140 @@ mysql> select * from Student ;
 |    106 | diksha |    80 | B     | Delhi  |
 +--------+--------+-------+-------+--------+
 6 rows in set (0.00 sec)
+
+***********Alter (to change the schema) ***************
+1) **ADD Column** 
+    ALTER TABLE table_name 
+    ADD COLUMN column_name datatype constraint;
+# EXAMPLE -:
+mysql> ALTER TABLE student
+    -> ADD COLUMN age INT ;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> select * from student ;
++--------+--------+-------+-------+--------+------+
+| rollno | name   | marks | grade | city   | age  |
++--------+--------+-------+-------+--------+------+
+|    101 | chaitu |    78 | O     | Pune   | NULL |
+|    102 | vins   |    79 | B     | Mumbai | NULL |
+|    103 | nachi  |    85 | C     | Mumbai | NULL |
+|    104 | tush   |    92 | D     | Delhi  | NULL |
+|    105 | piyu   |    87 | O     | Delhi  | NULL |
+|    106 | diksha |    80 | B     | Delhi  | NULL |
++--------+--------+-------+-------+--------+------+
+6 rows in set (0.00 sec)
+
+2) **DROP column** 
+   ALTER TABLE table_name
+   DROP COLUMN column_name;
+#EXAMPLE -: 
+mysql> ALTER TABLE student
+    -> DROP COLUMN age ;
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> select * from student ;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | O     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | O     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+3) **RENAME table** 
+   ALTER TABLE table_name
+   RENAME TO new_table_name;
+
+#EXAMPLE -: 
+mysql> ALTER TABLE student
+    -> RENAME TO stu ;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from stu;
++--------+--------+-------+-------+--------+
+| rollno | name   | marks | grade | city   |
++--------+--------+-------+-------+--------+
+|    101 | chaitu |    78 | O     | Pune   |
+|    102 | vins   |    79 | B     | Mumbai |
+|    103 | nachi  |    85 | C     | Mumbai |
+|    104 | tush   |    92 | D     | Delhi  |
+|    105 | piyu   |    87 | O     | Delhi  |
+|    106 | diksha |    80 | B     | Delhi  |
++--------+--------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+
+4) **CHANGE Column(rename)
+   ALTER TABLE table_name 
+   CHANGE COLUMN old_name new_name new_datatype new_constraint;
+
+#EXAMPLE -: 
+mysql> ALTER TABLE student
+    -> CHANGE age stu_age INT ;
+Query OK, 6 rows affected (0.28 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from student ;
++--------+--------+-------+-------+--------+---------+
+| rollno | name   | marks | grade | city   | stu_age |
++--------+--------+-------+-------+--------+---------+
+|    101 | chaitu |    78 | O     | Pune   |      19 |
+|    102 | vins   |    79 | B     | Mumbai |      19 |
+|    103 | nachi  |    85 | C     | Mumbai |      19 |
+|    104 | tush   |    92 | D     | Delhi  |      19 |
+|    105 | piyu   |    87 | O     | Delhi  |      19 |
+|    106 | diksha |    80 | B     | Delhi  |      19 |
++--------+--------+-------+-------+--------+---------+
+6 rows in set (0.00 sec)
+
+5) **MODIFY Column(modify datatype / constraint)**
+   ALTER TABLE table_name 
+   MODIFY col_name new_datatype new _constraint;
+
+# EXAMPLE 
+mysql> ALTER TABLE student
+    -> MODIFY age VARCHAR(2);
+Query OK, 6 rows affected (0.17 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from student ;
++--------+--------+-------+-------+--------+------+
+| rollno | name   | marks | grade | city   | age  |
++--------+--------+-------+-------+--------+------+
+|    101 | chaitu |    78 | O     | Pune   | 19   |
+|    102 | vins   |    79 | B     | Mumbai | 19   |
+|    103 | nachi  |    85 | C     | Mumbai | 19   |
+|    104 | tush   |    92 | D     | Delhi  | 19   |
+|    105 | piyu   |    87 | O     | Delhi  | 19   |
+|    106 | diksha |    80 | B     | Delhi  | 19   |
++--------+--------+-------+-------+--------+------+
+6 rows in set (0.00 sec)
+
+6) **TRUNCATE(to delete table's data)**
+
+TRUNCATE TABLE table_name;
+# EXAMPLE : 
+mysql> TRUNCATE TABLE student ;
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> select * from student ;
+Empty set (0.00 sec)
+
+mysql> desc student ;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(50) | YES  |     | NULL    |       |
+| marks  | int         | NO   |     | NULL    |       |
+| grade  | varchar(10) | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
 
 *********************************************************************************
 **Cascading for FK(Foreign Key)**
@@ -587,5 +721,78 @@ mysql> select * from student ;
 |    106 | diksha |    80 | B     | Delhi  |
 +--------+--------+-------+-------+--------+
 6 rows in set (0.00 sec)
+************************************************************************************
+
+*********************     Practice Question    ********************
+Que-> In the student table :
+******* a . Chnage the name of column "name" to "full_name".*********
+ANS-> mysql> ALTER TABLE student
+    -> CHANGE name full_name VARCHAR(50);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+-----------+-------+-------+--------+
+| rollno | full_name | marks | grade | city   |
++--------+-----------+-------+-------+--------+
+|    101 | chaitu    |    78 | A     | Pune   |
+|    102 | vins      |    79 | B     | Mumbai |
+|    103 | nachi     |    85 | C     | Mumbai |
+|    104 | tush      |    92 | D     | Delhi  |
+|    105 | piyu      |    87 | A     | Delhi  |
+|    106 | diksha    |    80 | B     | Delhi  |
++--------+-----------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+*****b .Delete all the student who scored marks less than 80.****
+ANS ->
+mysql> DELETE FROM student
+    -> WHERE marks < 80;
+Query OK, 2 rows affected (0.09 sec)
+
+mysql> select * from student ;
++--------+-----------+-------+--------+
+| rollno | full_name | marks | city   |
++--------+-----------+-------+--------+
+|    103 | nachi     |    85 | Mumbai |
+|    104 | tush      |    92 | Delhi  |
+|    105 | piyu      |    87 | Delhi  |
+|    106 | diksha    |    80 | Delhi  |
++--------+-----------+-------+--------+
+4 rows in set (0.00 sec)
+
+***** c . Delete the column for grades .****
+ANS -> 
+mysql> ALTER TABLE student
+    -> DROP COLUMN grade ;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> select * from student ;
++--------+-----------+-------+--------+
+| rollno | full_name | marks | city   |
++--------+-----------+-------+--------+
+|    101 | chaitu    |    78 | Pune   |
+|    102 | vins      |    79 | Mumbai |
+|    103 | nachi     |    85 | Mumbai |
+|    104 | tush      |    92 | Delhi  |
+|    105 | piyu      |    87 | Delhi  |
+|    106 | diksha    |    80 | Delhi  |
++--------+-----------+-------+--------+
+6 rows in set (0.00 sec)
+
+*****************************************************************************************
+
+**********************JOINS in SQL *******************************
+Join is used to combine rows from two or more tables , based on a related column between them .
+
+# TYPES OF JOINS 
+1) Inner join 
+2) Left join   //outer join 
+3) Right join  //outer join 
+4) Full join   //outer join 
+
+
+
+
 
 
