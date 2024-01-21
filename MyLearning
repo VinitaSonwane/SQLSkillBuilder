@@ -723,7 +723,7 @@ mysql> select * from student ;
 6 rows in set (0.00 sec)
 ************************************************************************************
 
-*********************     Practice Question    ********************
+*********************    🎯 Practice Question 🎯   ********************
 Que-> In the student table :
 ******* a . Chnage the name of column "name" to "full_name".*********
 ANS-> mysql> ALTER TABLE student
@@ -790,6 +790,338 @@ Join is used to combine rows from two or more tables , based on a related column
 2) Left join   //outer join 
 3) Right join  //outer join 
 4) Full join   //outer join 
+
+1)Inner Join 
+-> Returns records that have matching values in both tables 
+SYNTAX : 
+SELECT column(s)
+FROM tableA 
+INNER JOIN tableB 
+ON tableA.col_name = tableB.col_name;
+
+***EXAMPLE***
+mysql> use college ;
+Database changed
+mysql> create table student(
+    -> id INT PRIMARY KEY ,
+    -> name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into student (id,name)
+    -> values
+    -> (101,"adam"),
+    -> (102,"bob"),
+    -> (103,"casey");
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student
+    -> ;
++-----+-------+
+| id  | name  |
++-----+-------+
+| 101 | adam  |
+| 102 | bob   |
+| 103 | casey |
++-----+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table course(
+    -> id INT PRIMARY KEY ,
+    -> course VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into course(id,course)
+    -> values
+    -> (102,"english"),
+    -> (105,"math"),
+    -> (103,"science"),
+    -> (107,"computer science");
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from course ;
++-----+------------------+
+| id  | course           |
++-----+------------------+
+| 102 | english          |
+| 103 | science          |
+| 105 | math             |
+| 107 | computer science |
++-----+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student as a
+    -> INNER JOIN course as b
+    -> ON a.id = b.id;
++-----+-------+-----+---------+
+| id  | name  | id  | course  |
++-----+-------+-----+---------+
+| 102 | bob   | 102 | english |
+| 103 | casey | 103 | science |
++-----+-------+-----+---------+
+2 rows in set (0.00 sec)
+
+2) LEFT JOIN 
+->Return all records from left table , and the matched records from the right table .
+SYNTAX :
+SELECT column(s)
+FROM tableA
+LEFT JOIN tableB 
+ON tableA.col_name = tableB.col_name ;
+*****EXAMPLE****
+mysql> select * from student as a
+    -> LEFT JOIN course as b
+    -> ON a.id = b.id;
++-----+-------+------+---------+
+| id  | name  | id   | course  |
++-----+-------+------+---------+
+| 101 | adam  | NULL | NULL    |
+| 102 | bob   |  102 | english |
+| 103 | casey |  103 | science |
++-----+-------+------+---------+
+3 rows in set (0.01 sec)
+
+3)RIGHT JOIN 
+->Return all records from right  table , and the matched records from the left  table .
+SYNTAX :
+SELECT column(s)
+FROM tableA
+RIGHT JOIN tableB 
+ON tableA.col_name = tableB.col_name ;
+
+******EXAMPLE*****
+mysql> select * from student as a
+    -> RIGHT JOIN course as b
+    -> ON a.id = b.id;
++------+-------+-----+------------------+
+| id   | name  | id  | course           |
++------+-------+-----+------------------+
+|  102 | bob   | 102 | english          |
+|  103 | casey | 103 | science          |
+| NULL | NULL  | 105 | math             |
+| NULL | NULL  | 107 | computer science |
++------+-------+-----+------------------+
+4 rows in set (0.00 sec)
+
+4) FULL JOIN 
+-> Returns all records when there is a match in either left or right table.
+SYNTAX 
+SELECT * FROM student as a 
+LEFT JOIN course as b 
+ON a.id = b.id 
+UNION 
+SELECT * FROM student as a 
+RIGHT JOIN course as b 
+ON a.id = b.id ;
+
+*****EXAMPLE*****
+mysql> select * from student as a
+    -> LEFT JOIN course as b
+    -> ON a.id = b.id
+    -> UNION
+    -> select * from student as a
+    -> RIGHT JOIN course as b
+    -> ON a.id = b.id;
++------+-------+------+------------------+
+| id   | name  | id   | course           |
++------+-------+------+------------------+
+|  101 | adam  | NULL | NULL             |
+|  102 | bob   |  102 | english          |
+|  103 | casey |  103 | science          |
+| NULL | NULL  |  105 | math             |
+| NULL | NULL  |  107 | computer science |
++------+-------+------+------------------+
+5 rows in set (0.01 sec)
+
+***********************************************************************************************************
+
+-------------------------🎯 Think & Ans 🎯------------------------------------------
+Que : Write SQL comands to display the left and right exclusive join ?
+Ans :
+mysql> select * from student as a
+    -> LEFT  JOIN course as b
+    -> ON a.id = b.id
+    -> WHERE b.id IS NULL;
++-----+------+------+--------+
+| id  | name | id   | course |
++-----+------+------+--------+
+| 101 | adam | NULL | NULL   |
++-----+------+------+--------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from student as a
+    -> RIGHT  JOIN course as b
+    -> ON a.id = b.id
+    -> WHERE a.id IS NULL;
++------+------+-----+------------------+
+| id   | name | id  | course           |
++------+------+-----+------------------+
+| NULL | NULL | 105 | math             |
+| NULL | NULL | 107 | computer science |
++------+------+-----+------------------+
+2 rows in set (0.01 sec)
+
+Que : Only gives the left and right join element without giving the intersection element 
+mysql> select * from student as a
+    -> LEFT JOIN course as b
+    -> ON a.id = b.id
+    -> WHERE b.id IS NULL
+    -> UNION
+    -> select * from student as a
+    -> RIGHT JOIN course as b
+    -> ON a.id = b.id
+    -> WHERE a.id IS NULL
+    -> ;
++------+------+------+------------------+
+| id   | name | id   | course           |
++------+------+------+------------------+
+|  101 | adam | NULL | NULL             |
+| NULL | NULL |  105 | math             |
+| NULL | NULL |  107 | computer science |
++------+------+------+------------------+
+3 rows in set (0.00 sec)
+
+# Self Join 
+It is a regular join but the table is joined with itself  
+****EXAMPLE *****
+mysql> Create TABLE employee (
+    -> id INT PRIMARY KEY ,
+    -> name VARCHAR (50),
+    -> manager_id INT
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO employee (id,name , manager_id)
+    -> VALUES
+    -> (101,"adam" , 103 ),
+    -> (102 , "bob" , 104 ),
+    -> (103,"casey" , null),
+    -> (104 , "donald",103);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee ;
++-----+--------+------------+
+| id  | name   | manager_id |
++-----+--------+------------+
+| 101 | adam   |        103 |
+| 102 | bob    |        104 |
+| 103 | casey  |       NULL |
+| 104 | donald |        103 |
++-----+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee as a
+    -> JOIN employee as b
+    -> ON a.id = b.manager_id ;
++-----+--------+------------+-----+--------+------------+
+| id  | name   | manager_id | id  | name   | manager_id |
++-----+--------+------------+-----+--------+------------+
+| 103 | casey  |       NULL | 101 | adam   |        103 |
+| 104 | donald |        103 | 102 | bob    |        104 |
+| 103 | casey  |       NULL | 104 | donald |        103 |
++-----+--------+------------+-----+--------+------------+
+3 rows in set (0.00 sec)
+
+
+# Only gives the name of a and name of b not display all the column .
+mysql> select a.name , b.name
+    -> FROM employee as a
+    -> JOIN employee as b
+    -> ON a.id = b.manager_id ;
++--------+--------+
+| name   | name   |
++--------+--------+
+| casey  | adam   |
+| donald | bob    |
+| casey  | donald |
++--------+--------+
+3 rows in set (0.00 sec)
+
+
+mysql> select a.name as manager_name , b.name
+    -> FROM employee as a
+    -> JOIN employee as b
+    -> ON a.id = b.manager_id ;
++--------------+--------+
+| manager_name | name   |
++--------------+--------+
+| casey        | adam   |
+| donald       | bob    |
+| casey        | donald |
++--------------+--------+
+3 rows in set (0.00 sec)
+
+**********************************************************************************************
+
+***UNION***
+It is used to combine the result-set of two or more SELECT statements .
+Gives UNIQUE records 
+
+---------To use it :----------
+-> every SELECT should have same no.of columns 
+-> columns must have similar data types 
+-> columns in every SELECT should be in same order .
+
+****SYNTAX**** 
+SELECT column(s) FROM tableA 
+UNION 
+SELECT column(s) FROM tableB 
+
+EXAMPLE : mysql> select name from employee
+    -> UNION
+    -> select name from employee ;
++--------+
+| name   |
++--------+
+| adam   |
+| bob    |
+| casey  |
+| donald |
++--------+
+4 rows in set (0.00 sec)
+
+**********************************************************************************************
+
+************SQL SUB QUERIES **************
+A Subquerry or Inner querry or a Nested query is a query within another SQL query .
+It involves 2 select statements .
+
+SYNTAX 
+SELECT column(s)
+FROM table_name 
+WHERE col_name operator 
+(subquery);
+***********************************************************************************
+
+*******************MYSQL Views *************************
+ -> A view is a virtual table based on the result-set of an SQL statement .
+-> A view always shows up-to-date data .
+->The database engine recreates the view , every time a user queries it 
+***SYNTAX ****
+CREATE VIEW view1 AS 
+SELECT rollno , name FROM student ;
+
+***********EXAMPLE*******************
+mysql> CREATE VIEW view AS
+    -> SELECT id , name FROM employee  ;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from view ;
++-----+--------+
+| id  | name   |
++-----+--------+
+| 101 | adam   |
+| 102 | bob    |
+| 103 | casey  |
+| 104 | donald |
++-----+--------+
+4 rows in set (0.01 sec)
+
 
 
 
