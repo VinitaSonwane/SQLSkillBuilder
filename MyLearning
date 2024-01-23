@@ -158,7 +158,9 @@ mysql> select * from employee;
 **Primary Key** : It is a column(or set of columns) in a table that uniquely identifies each row.(a unique id) . 
                   There is only 1 PK & it should be NOT NULL .
 **Foreign Key** : A foreign key is a column(or set of columns) in a table that refers to the primary key in the table 
-                  There can be multiple FKs . FKs can have duplicate & null values 
+                  There can be multiple FKs . FKs can have duplicate & null values.
+
+
 *******************************************************************************************************************************************
 
 ## Constraints :
@@ -231,7 +233,8 @@ mysql> select DISTINCT city from Student;
 | Delhi  |
 +--------+
 3 rows in set (0.01 sec)
-*****************************************************************************************************************************
+
+*******************************************************************************************************************************************
 
 ## WHERE clause  : To define some conditions(eg. select col1,col2 from table_name WHERE conditios;) 
 
