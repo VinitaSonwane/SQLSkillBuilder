@@ -104,9 +104,10 @@ mysql> select * from stu;
 mysql> CREATE DATABASE IF NOT EXISTS student;
 Query OK, 1 row affected, 1 warning (0.01 sec)
 
-**************************************************************************************************************************************
 
-###  Practice question : 
+*********************************************************************************************************************************************
+
+##  Practice question : 
 Que :- create a databse for your company named XYZ
 Ans :- 
 mysql> show databases ;
@@ -155,6 +156,7 @@ mysql> select * from employee;
 
 *******************************************************************************************************************************************
 ## KEYS :
+
 **Primary Key** : It is a column(or set of columns) in a table that uniquely identifies each row.(a unique id) . 
                   There is only 1 PK & it should be NOT NULL .
 **Foreign Key** : A foreign key is a column(or set of columns) in a table that refers to the primary key in the table 
