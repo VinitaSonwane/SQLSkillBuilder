@@ -144,6 +144,8 @@ mysql> insert into employee (id,name,salary)
     -> (3,"casey" , 40000);
 Query OK, 3 rows affected (0.02 sec)
 Records: 3  Duplicates: 0  Warnings: 0
+
+
 mysql> select * from employee;
 +----+-------+--------+
 | id | name  | salary |
@@ -155,6 +157,7 @@ mysql> select * from employee;
 3 rows in set (0.00 sec)
 
 *******************************************************************************************************************************************
+
 ## KEYS :
 
 **Primary Key** : It is a column(or set of columns) in a table that uniquely identifies each row.(a unique id) . 
@@ -236,7 +239,7 @@ mysql> select DISTINCT city from Student;
 +--------+
 3 rows in set (0.01 sec)
 
-*******************************************************************************************************************************************
+********************************************************************************************************************************************************
 
 ## WHERE clause  : To define some conditions(eg. select col1,col2 from table_name WHERE conditios;) 
 
