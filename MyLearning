@@ -263,7 +263,7 @@ mysql> select * from Student WHERE city= "Mumbai";
 2 rows in set (0.01 sec)
 
 
-  ** using Operators in WHERE **
+  ** Using Operators in WHERE **
    Arithmetic Operator : + ,- ,* , / , % 
    Comparison Operator : = , != , > , < , >= , <= 
    Logical Operator    : AND , OR, NOT , IN , BETWEEN , ALL , LIKE , ANY 
@@ -305,7 +305,7 @@ mysql> select * from Student WHERE marks BETWEEN 70 AND 85;
 +--------+--------+-------+-------+--------+
 4 rows in set (0.00 sec)
 
-*****IN Operator*****
+***** IN Operator *****
 (matches any value in the list)
 mysql> select * from Student WHERE city IN ("Delhi","Mumbai");
 +--------+--------+-------+-------+--------+
