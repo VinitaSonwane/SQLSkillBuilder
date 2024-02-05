@@ -731,7 +731,7 @@ mysql> select * from student ;
 6 rows in set (0.00 sec)
 ************************************************************************************
 
-*********************    🎯 Practice Question 🎯   ********************
+**************************  🎯 Practice Question 🎯   ********************
 Que-> In the student table :
 ******* a . Chnage the name of column "name" to "full_name".*********
 ANS-> mysql> ALTER TABLE student
